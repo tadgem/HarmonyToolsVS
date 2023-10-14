@@ -36,7 +36,28 @@ namespace HazelToolsVS.Debugging
 			}
 		}
 
-		protected override void OnConnectionError(Exception ex)
+        protected override string GetConnectingMessage(DebuggerStartInfo dsi)
+        {
+            return base.GetConnectingMessage(dsi);
+        }
+
+        protected override BreakEventInfo OnInsertBreakEvent(BreakEvent breakEvent)
+        {
+            BreakEventInfo info = base.OnInsertBreakEvent(breakEvent);
+			return info;
+        }
+
+        protected override void OnEnableBreakEvent(BreakEventInfo eventInfo, bool enable)
+        {
+            base.OnEnableBreakEvent(eventInfo, enable);
+        }
+
+        protected override bool HandleException(Exception ex)
+        {
+            return base.HandleException(ex);
+        }
+
+        protected override void OnConnectionError(Exception ex)
 		{
 			// The session was manually terminated
 			if (HasExited)
