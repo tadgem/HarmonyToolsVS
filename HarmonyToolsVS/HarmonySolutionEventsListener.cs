@@ -3,9 +3,9 @@ using Microsoft.VisualStudio.Shell;
 
 namespace HazelToolsVS
 {
-	internal class HazelSolutionEventsListener : SolutionEventsListener
+	internal class HarmonySolutionEventsListener : SolutionEventsListener
 	{
-		public HazelSolutionEventsListener(IServiceProvider serviceProvider)
+		public HarmonySolutionEventsListener(IServiceProvider serviceProvider)
 			: base(serviceProvider)
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();

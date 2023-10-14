@@ -10,11 +10,11 @@ namespace HazelToolsVS.Debugging
         AttachHazelnutDebugger
     }
 
-    internal class HazelStartInfo : StartInfo
+    internal class HarmonyStartInfo : StartInfo
     {
         public readonly HazelSessionType SessionType;
 
-        public HazelStartInfo(SoftDebuggerStartArgs args, DebuggingOptions options, Project startupProject, HazelSessionType sessionType)
+        public HarmonyStartInfo(SoftDebuggerStartArgs args, DebuggingOptions options, Project startupProject, HazelSessionType sessionType)
             : base(args, options, startupProject)
         {
             SessionType = sessionType;

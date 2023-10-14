@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.Shell;
 
 namespace HazelToolsVS
 {
-	public class HazelToolsGeneralOptions : DialogPage
+	public class HarmonyToolsGeneralOptions : DialogPage
 	{
 
 		[Category("Debugging")]

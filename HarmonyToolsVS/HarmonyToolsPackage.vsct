@@ -22,7 +22,7 @@
                 <CommandFlag>DynamicVisibility</CommandFlag>
                 <CommandFlag>IconIsMoniker</CommandFlag>
                 <Strings>
-                    <ButtonText>Attach to Hazelnut</ButtonText>
+                    <ButtonText>Attach to Harmony</ButtonText>
                 </Strings>
             </Button>
         </Buttons>

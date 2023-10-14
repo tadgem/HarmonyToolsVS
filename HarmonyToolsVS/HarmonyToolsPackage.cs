@@ -28,12 +28,12 @@ namespace HazelToolsVS
 	[PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
 	[Guid(PackageGuidString)]
 	[ProvideMenuResource("Menus.ctmenu", 1)]
-	[ProvideOptionPage(typeof(HazelToolsGeneralOptions), "Hazel Tools", "General", 0, 0, true)]
+	[ProvideOptionPage(typeof(HarmonyToolsGeneralOptions), "Harmony Tools", "Debugging Options", 0, 0, true)]
 	[ProvideUIContextRule(UIContextHasCSProjectGuid, name: "Has CSharp Project",
 		expression: "HasCSProject",
 		termNames: new[] { "HasCSProject" },
 		termValues: new[] { "SolutionHasProjectCapability:CSharp" })]
-	public sealed class HazelToolsPackage : AsyncPackage
+	public sealed class HarmonyToolsPackage : AsyncPackage
 	{
 		/// <summary>
 		/// GodotPackage GUID string.
@@ -43,15 +43,15 @@ namespace HazelToolsVS
 
 		#region Package Members
 
-		public static HazelToolsPackage Instance { get; private set; }
+		public static HarmonyToolsPackage Instance { get; private set; }
 
-		public HazelToolsPackage()
+		public HarmonyToolsPackage()
 		{
 			Instance = this;
 		}
 
-		internal HazelSolutionEventsListener SolutionEventsListener { get; private set; }
-		internal HazelToolsGeneralOptions GeneralOptions => GetDialogPage(typeof(HazelToolsGeneralOptions)) as HazelToolsGeneralOptions;
+		internal HarmonySolutionEventsListener SolutionEventsListener { get; private set; }
+		internal HarmonyToolsGeneralOptions GeneralOptions => GetDialogPage(typeof(HarmonyToolsGeneralOptions)) as HarmonyToolsGeneralOptions;
 
 		/// <summary>
 		/// Initialization of the package; this method is called right after the package is sited, so this is the place
@@ -65,9 +65,9 @@ namespace HazelToolsVS
 			// When initialized asynchronously, the current thread may be a background thread at this point.
 			// Do any initialization that requires the UI thread after switching to the UI thread.
 			await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
-			await AttachHazelnutCommand.InitializeAsync(this);
+			await AttachHarmonyCommand.InitializeAsync(this);
 
-			SolutionEventsListener = new HazelSolutionEventsListener(this);
+			SolutionEventsListener = new HarmonySolutionEventsListener(this);
 		}
 
 		public async Task ShowErrorMessageBoxAsync(string title, string message)

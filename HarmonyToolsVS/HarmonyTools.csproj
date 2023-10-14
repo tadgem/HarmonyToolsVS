@@ -14,8 +14,8 @@
     <ProjectGuid>{7D64803D-2F8D-4597-9762-A316C74E9816}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HazelToolsVS</RootNamespace>
-    <AssemblyName>HazelToolsVS</AssemblyName>
+    <RootNamespace>HarmonyToolsVS</RootNamespace>
+    <AssemblyName>HarmonyToolsVS</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <GeneratePkgDefFile>true</GeneratePkgDefFile>
     <UseCodebase>true</UseCodebase>
@@ -46,15 +46,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AttachHazelnutCommand.cs" />
-    <Compile Include="Debugging\HazelDebuggerSession.cs" />
-    <Compile Include="Debugging\HazelStartInfo.cs" />
-    <Compile Include="HazelSolutionEventsListener.cs" />
-    <Compile Include="HazelToolsGeneralOptions.cs">
+    <Compile Include="AttachHarmonyCommand.cs" />
+    <Compile Include="Debugging\HarmonyDebuggerSession.cs" />
+    <Compile Include="Debugging\HarmonyStartInfo.cs" />
+    <Compile Include="HarmonySolutionEventsListener.cs" />
+    <Compile Include="HarmonyToolsGeneralOptions.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="HazelToolsPackage.cs" />
+    <Compile Include="HarmonyToolsPackage.cs" />
     <Compile Include="SolutionEventsListener.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -65,16 +65,16 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Mono.Debugger.Soft">
-      <HintPath>..\..\..\..\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Xamarin.VisualStudio\Mono.Debugger.Soft.dll</HintPath>
+      <HintPath>C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Xamarin.VisualStudio\Mono.Debugger.Soft.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Debugging">
-      <HintPath>..\..\..\..\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Xamarin.VisualStudio\Mono.Debugging.dll</HintPath>
+      <HintPath>C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Xamarin.VisualStudio\Mono.Debugging.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Debugging.Soft">
-      <HintPath>..\..\..\..\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Xamarin.VisualStudio\Mono.Debugging.Soft.dll</HintPath>
+      <HintPath>C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Xamarin.VisualStudio\Mono.Debugging.Soft.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Debugging.VisualStudio">
-      <HintPath>..\..\..\..\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Xamarin.VisualStudio\Mono.Debugging.VisualStudio.dll</HintPath>
+      <HintPath>C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Xamarin.VisualStudio\Mono.Debugging.VisualStudio.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -99,29 +99,16 @@
     <VSIXSourceItem Include="@(MonoDebuggingVsix)" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="icon.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
     <Content Include="LICENSE.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <VSCTCompile Include="HazelToolsPackage.vsct">
+    <VSCTCompile Include="HarmonyToolsPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
     </VSCTCompile>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\HazelCSharpTemplateProject\HazelCSharpTemplateProject.csproj">
-      <Project>{46ABAFD5-DC8A-4441-82DD-4AD3928B6845}</Project>
-      <Name>HazelCSharpTemplateProject</Name>
-      <VSIXSubPath>ItemTemplates</VSIXSubPath>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-      <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <GetVsixSourceItemsDependsOn>$(GetVsixSourceItemsDependsOn);IncludeNuGetResolvedAssets</GetVsixSourceItemsDependsOn>

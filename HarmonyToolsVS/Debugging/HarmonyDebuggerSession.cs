@@ -7,7 +7,7 @@ using Mono.Debugger.Soft;
 
 namespace HazelToolsVS.Debugging
 {
-	internal class HazelDebuggerSession : SoftDebuggerSession
+	internal class HarmonyDebuggerSession : SoftDebuggerSession
 	{
 		private bool m_IsAttached;
 		private MenuCommand m_AttachToHazelnutMenuItem;
@@ -19,7 +19,7 @@ namespace HazelToolsVS.Debugging
 
 		protected override void OnRun(DebuggerStartInfo startInfo)
 		{
-			var hazelStartInfo = startInfo as HazelStartInfo;
+			var hazelStartInfo = startInfo as HarmonyStartInfo;
 
 			switch (hazelStartInfo.SessionType)
 			{
@@ -70,7 +70,7 @@ namespace HazelToolsVS.Debugging
 				}
 			}
 			
-			_ = HazelToolsPackage.Instance.ShowErrorMessageBoxAsync("Connection Error", message);
+			_ = HarmonyToolsPackage.Instance.ShowErrorMessageBoxAsync("Connection Error", message);
 			base.OnConnectionError(ex);
 		}
 

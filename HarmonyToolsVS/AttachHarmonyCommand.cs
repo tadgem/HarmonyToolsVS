@@ -16,7 +16,7 @@ namespace HazelToolsVS
 	/// <summary>
 	/// Command handler
 	/// </summary>
-	internal sealed class AttachHazelnutCommand
+	internal sealed class AttachHarmonyCommand
 	{
 		/// <summary>
 		/// Command ID.
@@ -38,12 +38,12 @@ namespace HazelToolsVS
 		private MenuCommand m_MenuItem;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="AttachHazelnutCommand"/> class.
+		/// Initializes a new instance of the <see cref="AttachHarmonyCommand"/> class.
 		/// Adds our command handlers for menu (commands must exist in the command table file)
 		/// </summary>
 		/// <param name="package">Owner package, not null.</param>
 		/// <param name="commandService">Command service to add command to, not null.</param>
-		private AttachHazelnutCommand(AsyncPackage package, OleMenuCommandService commandService)
+		private AttachHarmonyCommand(AsyncPackage package, OleMenuCommandService commandService)
 		{
 			this.package = package ?? throw new ArgumentNullException(nameof(package));
 			commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
@@ -56,7 +56,7 @@ namespace HazelToolsVS
 		/// <summary>
 		/// Gets the instance of the command.
 		/// </summary>
-		public static AttachHazelnutCommand Instance
+		public static AttachHarmonyCommand Instance
 		{
 			get;
 			private set;
@@ -84,7 +84,7 @@ namespace HazelToolsVS
 			await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
 
 			OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
-			Instance = new AttachHazelnutCommand(package, commandService);
+			Instance = new AttachHarmonyCommand(package, commandService);
 			Instance.m_SolutionBuildManager = await package.GetServiceAsync(typeof(IVsSolutionBuildManager)) as IVsSolutionBuildManager;
 		}
 
@@ -103,17 +103,17 @@ namespace HazelToolsVS
 			vsHierarchy.GetProperty(VSConstants.VSITEMID_ROOT, (int)__VSHPROPID.VSHPROPID_ExtObject, out object projectObj);
 			Project project = projectObj as Project;
 
-			var startArgs = new SoftDebuggerConnectArgs(project.Name, IPAddress.Parse("127.0.0.1"), HazelToolsPackage.Instance.GeneralOptions.ConnectionPort)
+			var startArgs = new SoftDebuggerConnectArgs(project.Name, IPAddress.Parse("127.0.0.1"), HarmonyToolsPackage.Instance.GeneralOptions.ConnectionPort)
 			{
-				MaxConnectionAttempts = HazelToolsPackage.Instance.GeneralOptions.MaxConnectionAttempts
+				MaxConnectionAttempts = HarmonyToolsPackage.Instance.GeneralOptions.MaxConnectionAttempts
 			};
 
-			var startInfo = new HazelStartInfo(startArgs, null, project, HazelSessionType.AttachHazelnutDebugger)
+			var startInfo = new HarmonyStartInfo(startArgs, null, project, HazelSessionType.AttachHazelnutDebugger)
 			{
-				WorkingDirectory = HazelToolsPackage.Instance.SolutionEventsListener?.SolutionDirectory
+				WorkingDirectory = HarmonyToolsPackage.Instance.SolutionEventsListener?.SolutionDirectory
 			};
 
-			var session = new HazelDebuggerSession();
+			var session = new HarmonyDebuggerSession();
 			session.Breakpoints.Clear();
 			var launcher = new MonoDebuggerLauncher(new Progress<string>());
 			launcher.StartSession(startInfo, session);

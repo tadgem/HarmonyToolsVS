@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="StudioCherno-HazelToolsVS" Version="1.4" Language="en-US" Publisher="Studio Cherno" />
-        <DisplayName>Hazel Tools</DisplayName>
-        <Description xml:space="preserve">Visual Studio integration with the Hazelnut editor, including C# script debugging support</Description>
-        <MoreInfo>https://github.com/StudioCherno/HazelToolsVS</MoreInfo>
+        <Identity Id="HarmonyToolsVS" Version="1.0" Language="en-US" Publisher="Liam Devlin" />
+        <DisplayName>Harmony Tools</DisplayName>
+        <Description xml:space="preserve">Visual Studio integration with the Harmony, including C# script debugging support</Description>
         <License>LICENSE.txt</License>
-        <Icon>icon.png</Icon>
-        <Tags>Hazel</Tags>
+        <Tags>Harmony</Tags>
     </Metadata>
     <Installation>
         <InstallationTarget Version="[17.3,18.0)" Id="Microsoft.VisualStudio.Community">
@@ -21,7 +19,6 @@
         </InstallationTarget>
     </Installation>
     <Assets>
-        <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="Project" d:ProjectName="HazelCSharpTemplateProject" d:TargetPath="|HazelCSharpTemplateProject;TemplateProjectOutputGroup|" Path="ItemTemplates" d:VsixSubPath="ItemTemplates" />
         <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
     </Assets>
     <Prerequisites>
