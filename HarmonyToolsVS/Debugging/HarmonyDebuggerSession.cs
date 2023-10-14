@@ -19,20 +19,20 @@ namespace HazelToolsVS.Debugging
 
 		protected override void OnRun(DebuggerStartInfo startInfo)
 		{
-			var hazelStartInfo = startInfo as HarmonyStartInfo;
+			var harmonyStartInfo = startInfo as HarmonyStartInfo;
 
-			switch (hazelStartInfo.SessionType)
+			switch (harmonyStartInfo.SessionType)
 			{
-			case HazelSessionType.PlayInEditor:
+			case HarmonySessionType.Launch:
 				break;
-			case HazelSessionType.AttachHazelnutDebugger:
+			case HarmonySessionType.AttachHarmonyDebugger:
 			{
 				m_IsAttached = true;
-				base.OnRun(hazelStartInfo);
+				base.OnRun(harmonyStartInfo);
 				break;
 			}
 			default:
-				throw new ArgumentOutOfRangeException(hazelStartInfo.SessionType.ToString());
+				throw new ArgumentOutOfRangeException(harmonyStartInfo.SessionType.ToString());
 			}
 		}
 
