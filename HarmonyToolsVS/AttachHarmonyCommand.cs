@@ -10,6 +10,8 @@ using Microsoft.VisualStudio;
 using Mono.Debugging.VisualStudio;
 using EnvDTE;
 using Mono.Debugging.Soft;
+using System.Collections.Generic;
+using System.IO;
 
 namespace HazelToolsVS
 {
@@ -103,12 +105,12 @@ namespace HazelToolsVS
 			vsHierarchy.GetProperty(VSConstants.VSITEMID_ROOT, (int)__VSHPROPID.VSHPROPID_ExtObject, out object projectObj);
 			Project project = projectObj as Project;
 
-			var startArgs = new SoftDebuggerConnectArgs("GameTest", IPAddress.Parse("127.0.0.1"), HarmonyToolsPackage.Instance.GeneralOptions.ConnectionPort)
+			var startArgs = new SoftDebuggerConnectArgs(project.Name, IPAddress.Parse("127.0.0.1"), HarmonyToolsPackage.Instance.GeneralOptions.ConnectionPort)
 			{
 				MaxConnectionAttempts = HarmonyToolsPackage.Instance.GeneralOptions.MaxConnectionAttempts
 			};
 
-			var startInfo = new HarmonyStartInfo(startArgs, null, project, HazelSessionType.AttachHazelnutDebugger)
+			var startInfo = new HarmonyStartInfo(startArgs, null, project, HarmonySessionType.AttachHarmonyDebugger)
 			{
 				WorkingDirectory = HarmonyToolsPackage.Instance.SolutionEventsListener?.SolutionDirectory
 			};

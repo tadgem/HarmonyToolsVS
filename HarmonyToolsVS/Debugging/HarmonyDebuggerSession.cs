@@ -4,6 +4,9 @@ using System.IO;
 using Mono.Debugging.Client;
 using Mono.Debugging.Soft;
 using Mono.Debugger.Soft;
+using static System.Net.Mime.MediaTypeNames;
+using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace HazelToolsVS.Debugging
 {
@@ -12,16 +15,70 @@ namespace HazelToolsVS.Debugging
 		private bool m_IsAttached;
 		private MenuCommand m_AttachToHazelnutMenuItem;
 
-		/*internal HazelDebuggerSession(MenuCommand attachToHazelnutMenuItem)
-		{
-			m_AttachToHazelnutMenuItem = attachToHazelnutMenuItem;
-		}*/
+		private BreakpointStore _store => Breakpoints;
 
-		protected override void OnRun(DebuggerStartInfo startInfo)
+		protected void OnOutput(bool isStderr, string text)
 		{
+			Console.WriteLine($"Output : {text}");
+		}
+
+        protected void OnLog(bool isStderr, string text)
+        {
+            Console.WriteLine($"Log : {text}");
+        }
+
+		protected void OnDebug(int level, string category, string message)
+		{
+            Console.WriteLine($"Debug{level} : {category} : {message}");
+        }
+
+		protected void OnBreakpointTrace(BreakEvent be, string trace)
+		{
+			Console.WriteLine($"Breakpoint Trace : {trace}");
+		}
+
+		private string OnTypeResolve(string identifier, SourceLocation location)
+		{
+			return identifier;
+        }
+
+		protected bool OnException(Exception e)
+		{
+			return false;
+		}
+        
+		protected override void OnStepInstruction()
+        {
+            base.OnStepInstruction();
+        }
+
+
+        protected override void OnRun(DebuggerStartInfo startInfo)
+		{
+			OutputWriter += OnOutput;
+			LogWriter += OnLog;
+			DebugWriter += OnDebug;
+            TypeResolverHandler += OnTypeResolve;
+			ExceptionHandler += OnException;
+
 			var harmonyStartInfo = startInfo as HarmonyStartInfo;
 
-			switch (harmonyStartInfo.SessionType)
+			Dictionary<string, string> replacements = new Dictionary<string, string>();
+
+			foreach(var kvp in harmonyStartInfo.AssemblyPathMap)
+			{
+				if(kvp.Value.Contains(".."))
+				{
+					replacements.Add(kvp.Key, Path.GetFullPath(kvp.Value));
+				}
+			}
+
+			foreach (var kvp in replacements)
+			{
+				harmonyStartInfo.AssemblyPathMap[kvp.Key] = kvp.Value;
+			}
+
+            switch (harmonyStartInfo.SessionType)
 			{
 			case HarmonySessionType.Launch:
 				break;
@@ -55,6 +112,11 @@ namespace HazelToolsVS.Debugging
         protected override bool HandleException(Exception ex)
         {
             return base.HandleException(ex);
+        }
+
+        protected override void OnStarted(ThreadInfo t)
+        {
+            base.OnStarted(t);
         }
 
         protected override void OnConnectionError(Exception ex)
